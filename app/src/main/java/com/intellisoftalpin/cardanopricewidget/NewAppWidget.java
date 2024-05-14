@@ -65,20 +65,20 @@ public class NewAppWidget extends AppWidgetProvider {
         queue.add(jsObjRequest);
 
 
-        // open main activity from button
-        Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-        views1.setOnClickPendingIntent(R.id.openMainButton, pendingIntent);
-
-        // update widget on btn update
-        Intent intentUpdate = new Intent(context, NewAppWidget.class);
-        intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        int[] idArray = new int[]{appWidgetId};
-        intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray);
-        PendingIntent pendingUpdate = PendingIntent.getBroadcast(
-                context, appWidgetId, intentUpdate,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        views1.setOnClickPendingIntent(R.id.button_update, pendingUpdate);
+//        // open main activity from button
+//        Intent intent = new Intent(context, MainActivity.class);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+//        views1.setOnClickPendingIntent(R.id.openMainButton, pendingIntent);
+//
+//        // update widget on btn update
+//        Intent intentUpdate = new Intent(context, NewAppWidget.class);
+//        intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+//        int[] idArray = new int[]{appWidgetId};
+//        intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray);
+//        PendingIntent pendingUpdate = PendingIntent.getBroadcast(
+//                context, appWidgetId, intentUpdate,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+//        views1.setOnClickPendingIntent(R.id.button_update, pendingUpdate);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views1);
