@@ -33,7 +33,7 @@
                 android:layout_width="255dp"
                 android:layout_height="20dp"
                 android:contentDescription="@string/appwidget_text"
-                android:text="Cardano"
+                android:text="ADA (Cardano)"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold" />
@@ -78,7 +78,7 @@
                         android:layout_width="130dp"
                         android:layout_height="20dp"
                         android:contentDescription="@string/appwidget_text"
-                        android:text="Market Cap:"
+                        android:text="Market Cap"
                         android:textColor="@color/grey"
                         android:textSize="13dp"
                         android:textStyle="normal" />
@@ -104,7 +104,7 @@
                         android:layout_width="125dp"
                         android:layout_height="20dp"
                         android:contentDescription="@string/appwidget_text"
-                        android:text="24h Volume:"
+                        android:text="24h"
                         android:textColor="@color/grey"
                         android:textSize="13dp"
                         android:textStyle="normal" />
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/appwidget_text"
                         android:textColor="@color/white"
-                        android:text="Connecting..."
+                        android:text=""
                         android:textSize="15sp"
                         android:textStyle="normal" />
                 </LinearLayout>

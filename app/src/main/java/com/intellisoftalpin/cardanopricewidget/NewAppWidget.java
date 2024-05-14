@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -17,50 +18,41 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Implementation of App Widget functionality.
- */
 public class NewAppWidget extends AppWidgetProvider {
-
+    public static final String geckoGetRequest = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=cardano&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en";
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        // Construct the RemoteViews object
-        RemoteViews views1 = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
-
-        String coingekoCardano = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=cardano&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en";
+        RemoteViews widgetView = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
 
         RequestQueue queue = Volley.newRequestQueue(context);
         JsonArrayRequest jsObjRequest = new JsonArrayRequest(
-                Request.Method.GET, coingekoCardano, null,
+                Request.Method.GET, geckoGetRequest, null,
                 response -> {
                     try {
-                        Log.w("WidgetExample",
-                                "Response => " + response.toString());
-                        JSONObject object = response.getJSONObject(0);
-                        views1.setTextViewText(R.id.price, object.getString("current_price"));
-                        double exchange = object.getDouble("price_change_percentage_24h");
-                        String minus = "";
-                        if (object.getString("price_change_percentage_24h").charAt(0) != '-') {
-                            minus = "+";
-                        }
-                        @SuppressLint("DefaultLocale") String num = String.format("%.02f", exchange);
-                        views1.setTextViewText(R.id.exchange, minus + num + "%");
-                        @SuppressLint("DefaultLocale") String marketCap = String.format("%,d", Long.parseLong(object.getString("market_cap")));
-                        views1.setTextViewText(R.id.market_cap, marketCap);
-                        double capExchange = object.getDouble("market_cap_change_24h");
-                        int capExchangeInt = (int) capExchange;
-                        @SuppressLint("DefaultLocale") String marketExhangeString = String.format("%,d", Long.parseLong(String.valueOf(capExchangeInt)));
-                        views1.setTextViewText(R.id.volume, marketExhangeString);
 
+                        JSONObject object = response.getJSONObject(0);
+                        widgetView.setTextViewText(R.id.price, "$"+object.getString("current_price"));
+                        double exchange = object.getDouble("price_change_percentage_24h");
+                        @SuppressLint("DefaultLocale") String num = String.format("%.02f", exchange);
+
+                        String plus = "";
+                        if (exchange >= 0) {
+                            plus = "+";
+                            widgetView.setInt(R.id.exchange, "setTextColor", Color.GREEN);
+                        } else {
+                            widgetView.setInt(R.id.exchange, "setTextColor", Color.RED);
+                        }
+                        widgetView.setTextViewText(R.id.exchange, plus + num + "%");
+
+                        @SuppressLint("DefaultLocale") String marketCap = String.format("%,d", Long.parseLong(object.getString("market_cap")));
+                        widgetView.setTextViewText(R.id.market_cap, "$"+marketCap);
                     } catch (JSONException e) {
-                        // TODO Auto-generated catch block
                         Log.e("JSONException", "JSONException" + e);
                         e.printStackTrace();
                     }
-                    appWidgetManager.updateAppWidget(appWidgetId, views1);
+                    appWidgetManager.updateAppWidget(appWidgetId, widgetView);
                 }, error -> {
-            // TODO Auto-generated method stub
         });
         queue.add(jsObjRequest);
 
@@ -70,7 +62,7 @@ public class NewAppWidget extends AppWidgetProvider {
 //        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 //        views1.setOnClickPendingIntent(R.id.openMainButton, pendingIntent);
 //
-//        // update widget on btn update
+        // update widget on btn update
 //        Intent intentUpdate = new Intent(context, NewAppWidget.class);
 //        intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 //        int[] idArray = new int[]{appWidgetId};
@@ -81,7 +73,7 @@ public class NewAppWidget extends AppWidgetProvider {
 //        views1.setOnClickPendingIntent(R.id.button_update, pendingUpdate);
 
         // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views1);
+        appWidgetManager.updateAppWidget(appWidgetId, widgetView);
     }
 
 
