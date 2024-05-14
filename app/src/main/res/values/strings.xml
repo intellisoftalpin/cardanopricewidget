@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Cardano Price</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="add_widget_text">To add the "Cardano Price" widget to your phone screen, please follow these steps:\n\n
+        - Navigate to your home screen.\n
+        - Press and hold on an empty area of the screen.\n
+        - From the menu that appears, select the "Cardano Price" widget.\n
+        - Drag and drop the widget to your desired location on the screen.
+</string>
+</resources>
