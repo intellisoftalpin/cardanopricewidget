@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -18,6 +19,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NewAppWidget extends AppWidgetProvider {
     public static final String geckoGetRequest = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=cardano&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en";
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
@@ -25,11 +29,17 @@ public class NewAppWidget extends AppWidgetProvider {
 
         RemoteViews widgetView = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
 
+        widgetView.setTextViewText(R.id.market_cap, "1. Request created");
+
         RequestQueue queue = Volley.newRequestQueue(context);
+
+        widgetView.setTextViewText(R.id.market_cap, "2. RequestQueue created");
         JsonArrayRequest jsObjRequest = new JsonArrayRequest(
                 Request.Method.GET, geckoGetRequest, null,
                 response -> {
                     try {
+
+                        widgetView.setTextViewText(R.id.market_cap, "4. Response arrived");
 
                         JSONObject object = response.getJSONObject(0);
                         widgetView.setTextViewText(R.id.price, "$"+object.getString("current_price"));
@@ -50,11 +60,34 @@ public class NewAppWidget extends AppWidgetProvider {
                     } catch (JSONException e) {
                         Log.e("JSONException", "JSONException" + e);
                         e.printStackTrace();
+                        String errorMessage = e.getMessage();
+                        if (errorMessage == null) {
+                            errorMessage = "Unknown error"; // More user-friendly message
+                        }
+                        widgetView.setTextViewText(R.id.market_cap, errorMessage);
+                    } catch (Exception e) {
+                        String errorMessage = e.getMessage();
+                        if (errorMessage == null) {
+                            errorMessage = "Unknown error"; // More user-friendly message
+                        }
+                        widgetView.setTextViewText(R.id.market_cap, errorMessage);
                     }
                     appWidgetManager.updateAppWidget(appWidgetId, widgetView);
                 }, error -> {
-        });
+            Log.e("Volley Error", "Error in widget network request", error);
+            widgetView.setTextViewText(R.id.market_cap, "Error: " + error.toString());
+            appWidgetManager.updateAppWidget(appWidgetId, widgetView);
+        }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Cache-Control", "no-cache"); // This ensures the request does not use the cache
+                    return headers;
+                }
+
+        };
         queue.add(jsObjRequest);
+        widgetView.setTextViewText(R.id.market_cap, "3. jsObjRequest added to queue");
 
 
 //        // open main activity from button
@@ -75,6 +108,7 @@ public class NewAppWidget extends AppWidgetProvider {
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, widgetView);
     }
+
 
 
     @Override
