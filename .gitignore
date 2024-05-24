@@ -38,3 +38,4 @@ local.properties
 # Android Studio files
 .idea/
 *.iml
+app/release/
