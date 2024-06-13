@@ -18,17 +18,146 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blr_icon"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/cardano_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/cardano_cryptocurrency" />
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="270dp"
+                android:layout_height="20dp"
+                android:contentDescription="@string/appwidget_text"
+                android:text="ADA (Cardano)"
+                android:textColor="@color/grey"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/price_main"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/appwidget_text"
+                    android:text="Connecting..."
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/exchange_main"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/appwidget_text"
+                    android:textColor="@color/grey"
+                    android:textSize="15sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/mc_text"
+                        android:layout_width="130dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="@string/appwidget_text"
+                        android:text="Market Cap"
+                        android:textColor="@color/grey"
+                        android:textSize="13dp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/market_cap_main"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/appwidget_text"
+                        android:text="Connecting..."
+                        android:textColor="@color/grey"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/vol_text"
+                        android:layout_width="130dp"
+                        android:layout_height="20dp"
+                        android:contentDescription="@string/appwidget_text"
+                        android:text="24h"
+                        android:textColor="@color/grey"
+                        android:textSize="13dp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/volume_main"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/appwidget_text"
+                        android:text=""
+                        android:textColor="@color/grey"
+                        android:textSize="15sp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/add_widget_text"
         android:paddingHorizontal="10dp"
+        android:text="@string/add_widget_text"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.318" />
 
     <TextView
         android:id="@+id/text_link"
